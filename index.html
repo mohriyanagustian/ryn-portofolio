@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portofolio - Moh Riyan Agustian</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --card: #1a2235;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(0,212,255,0.15);
+      --glow: 0 0 30px rgba(0,212,255,0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* --- NAVBAR --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--text); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--accent); }
+
+    /* --- HERO --- */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 6rem 2.5rem 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(124,58,237,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 60%, rgba(0,212,255,0.1) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      animation: fadeDown 0.6s ease both;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .hero-name {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-name .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      margin-top: 1.2rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-sub strong { color: var(--accent3); font-weight: 600; }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { box-shadow: 0 0 24px rgba(0,212,255,0.5); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* --- CV BUTTON (hero) --- */
+    .btn-cv {
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(0,212,255,0.1));
+      color: var(--accent);
+      border: 1px solid rgba(124,58,237,0.4);
+    }
+    .btn-cv:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(124,58,237,0.35);
+      transform: translateY(-2px);
+    }
+
+    /* --- FLOATING CARD (Avatar) --- */
+    .hero-avatar {
+      position: absolute;
+      right: 8%; top: 50%;
+      transform: translateY(-50%);
+      width: 280px; height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      animation: float 4s ease-in-out infinite, fadeUp 0.8s 0.3s ease both;
+    }
+    .avatar-frame {
+      width: 220px; height: 260px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--glow);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.8rem;
+      position: relative; overflow: hidden;
+    }
+    .avatar-frame img {
+      width: 100%; height: 75%;
+      object-fit: cover; object-position: center top;
+      border-radius: 20px;
+    }
+    .avatar-frame::before {
+      content: '';
+      position: absolute; inset: -1px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.3), transparent 40%, rgba(124,58,237,0.3));
+      border-radius: 24px; z-index: -1;
+    }
+    .avatar-initial {
+      font-size: 5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+    .avatar-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; color: var(--muted);
+      text-align: center; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .badge {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.7rem; font-weight: 600;
+      display: flex; align-items: center; gap: 0.4rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .badge-1 { top: 0; right: 0; color: var(--accent3); border-color: rgba(16,185,129,0.3); }
+    .badge-2 { bottom: 20px; left: -10px; color: var(--accent2); border-color: rgba(124,58,237,0.3); }
+
+    /* --- SECTIONS --- */
+    section { padding: 5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800; letter-spacing: -0.02em; margin-bottom: 3rem;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* --- ABOUT --- */
+    #about { padding-top: 2rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .info-card:hover { transform: translateY(-4px); box-shadow: var(--glow); }
+    .info-card .ic-label {
+      font-size: 0.7rem; font-family: 'Space Mono', monospace;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .info-card .ic-value { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.5; }
+    .info-card .ic-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .info-card.wide { grid-column: 1 / -1; }
+
+    /* --- EDUCATION --- */
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem 2rem;
+      display: flex; gap: 1.5rem; align-items: flex-start;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .edu-card:hover { transform: translateY(-4px); box-shadow: var(--glow); }
+    .edu-card + .edu-card { margin-top: 1rem; }
+    .edu-icon {
+      font-size: 2rem; flex-shrink: 0;
+      width: 52px; height: 52px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .edu-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .edu-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .edu-badge {
+      display: inline-block;
+      background: rgba(124,58,237,0.15); color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.3);
+      font-size: 0.7rem; font-family: 'Space Mono', monospace;
+      padding: 0.2rem 0.7rem; border-radius: 100px; margin-top: 0.5rem;
+    }
+
+    /* --- HOBBIES --- */
+    .hobbies-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .hobby-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem 1.2rem;
+      text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .hobby-card:hover { transform: translateY(-6px); box-shadow: var(--glow); border-color: rgba(0,212,255,0.4); }
+    .hobby-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .hobby-card h3 { font-size: 0.95rem; font-weight: 700; }
+    .hobby-card p { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* --- SKILLS --- */
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      transition: all 0.2s; cursor: default;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* --- CV SECTION --- */
+    #cv { padding-top: 2rem; }
+
+    .cv-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .cv-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(124,58,237,0.1) 0%, transparent 55%),
+                  radial-gradient(ellipse 50% 60% at 100% 50%, rgba(0,212,255,0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cv-icon-wrap {
+      flex-shrink: 0;
+      width: 100px; height: 120px;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.4rem;
+      position: relative; z-index: 1;
+    }
+
+    .cv-icon-wrap .cv-doc-icon { font-size: 2.8rem; line-height: 1; }
+
+    .cv-icon-wrap .cv-doc-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .cv-body { flex: 1; position: relative; z-index: 1; }
+    .cv-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .cv-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+
+    .cv-meta {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .cv-meta-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+    }
+
+    .cv-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-cv-view {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+    }
+    .btn-cv-view:hover {
+      box-shadow: 0 0 24px rgba(0,212,255,0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-cv-download {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(124,58,237,0.5);
+    }
+    .btn-cv-download:hover {
+      border-color: var(--accent2);
+      color: #a78bfa;
+      transform: translateY(-2px);
+    }
+
+    /* CV preview pulse indicator */
+    .cv-live-dot {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem;
+      color: var(--accent3);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 0.8rem;
+    }
+    .cv-live-dot::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent3);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    /* --- CONTACT --- */
+    #contact { text-align: center; padding-bottom: 6rem; }
+    .contact-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3.5rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(0,212,255,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .contact-card h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.7rem; }
+    .contact-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .contact-info { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.7rem 1.2rem;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .contact-item span { color: var(--accent); }
+
+    /* --- SOCIAL MODAL --- */
+    .sm-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .sm-overlay.open { opacity: 1; pointer-events: all; }
+    .sm-modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.2rem 2rem;
+      width: 380px; max-width: 90vw;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s, opacity 0.25s;
+      opacity: 0;
+    }
+    .sm-overlay.open .sm-modal { transform: none; opacity: 1; }
+    .sm-modal-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .sm-modal-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.6rem; }
+    .sm-btn {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.2rem;
+      text-decoration: none; margin-bottom: 0.8rem;
+      transition: all 0.2s;
+    }
+    .sm-btn:hover { border-color: var(--accent); transform: translateX(4px); }
+    .sm-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .sm-icon.email { background: rgba(0,212,255,0.1); }
+    .sm-icon.ig { background: rgba(124,58,237,0.15); }
+    .sm-info p { margin: 0; }
+    .sm-info .lbl { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .sm-info .val { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .sm-close {
+      display: block; width: 100%; margin-top: 1rem;
+      text-align: center; font-size: 0.8rem;
+      color: var(--muted); background: none; border: none;
+      cursor: pointer; font-family: 'Sora', sans-serif; padding: 0.5rem;
+    }
+    .sm-close:hover { color: var(--text); }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: 0.78rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+    }
+    footer strong { color: var(--accent); }
+
+    /* --- DIVIDER --- */
+    .section-divider {
+      width: 100%; max-width: 1100px; margin: 0 auto;
+      border: none; border-top: 1px solid var(--border);
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateY(0); }
+      50%       { transform: translateY(-50%) translateY(-14px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      nav ul { gap: 1rem; }
+      nav ul a { font-size: 0.75rem; }
+      .hero-avatar { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hobbies-grid { grid-template-columns: 1fr 1fr; }
+      section { padding: 3rem 1.5rem; }
+      .cv-card { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .hobbies-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.2rem; }
+      nav ul { gap: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">RYN<span>.portofolio</span></div>
+    <ul>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#education">Pendidikan</a></li>
+      <li><a href="#hobbies">Hobi</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-content">
+      <div class="hero-tag">✦ Selamat Datang di Halaman Saya :)</div>
+
+      <h1 class="hero-name">
+        Moh Riyan<br>
+        <span class="highlight">Agustian</span>
+      </h1>
+
+      <p class="hero-sub">
+        Mahasiswa <strong>S1 Teknik Informatika</strong> di Stikom Poltek Cirebon.<br>
+        Passionate dalam dunia coding, olahraga, dan teknologi.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#about" class="btn btn-primary">Lihat Profil →</a>
+        <a href="#cv" class="btn btn-cv">📄 Lihat CV</a>
+        <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+      </div>
+    </div>
+
+    <div class="hero-avatar">
+      <div class="avatar-frame">
+        <img src="foto.jpg" alt="Foto Moh Riyan Agustian" />
+        <div class="avatar-initial">RYN</div>
+        <div class="avatar-label">Riyan Agustian<br>Cirebon, ID</div>
+      </div>
+      <div class="badge badge-1">⚡ Semester 2</div>
+      <div class="badge badge-2">💻 Informatics Engineering</div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">// 01 — Tentang Saya</p>
+      <h2 class="section-title">Biodata <span>Lengkap</span></h2>
+    </div>
+
+    <div class="about-grid reveal">
+      <div class="info-card">
+        <div class="ic-icon">👤</div>
+        <div class="ic-label">Nama Lengkap</div>
+        <div class="ic-value">Moh Riyan Agustian</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🎂</div>
+        <div class="ic-label">Umur</div>
+        <div class="ic-value">21 Tahun</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">📍</div>
+        <div class="ic-label">Tempat / Tanggal Lahir</div>
+        <div class="ic-value">Cirebon, 18 Agustus 2005</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🏫</div>
+        <div class="ic-label">Asal Sekolah</div>
+        <div class="ic-value">SMK Ulil Albab</div>
+      </div>
+      <div class="info-card wide">
+        <div class="ic-icon">🏠</div>
+        <div class="ic-label">Alamat</div>
+        <div class="ic-value">Jl. Sastra Sukendra No.91 Blok Pakuwon, Desa Plumbon,<br>Kabupaten Cirebon, Jawa Barat, Indonesia</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="reveal">
+      <p class="section-label">// 02 — Pendidikan</p>
+      <h2 class="section-title">Riwayat <span>Pendidikan</span></h2>
+    </div>
+
+    <div class="reveal">
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-body">
+          <h3>Stikom Poltek Cirebon</h3>
+          <p>S1 Teknik Informatika · Aktif sejak 2025</p>
+          <span class="edu-badge">Semester 2 · Sedang Ditempuh</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon">🏫</div>
+        <div class="edu-body">
+          <h3>SMK Ulil Albab</h3>
+          <p>Sekolah Menengah Kejuruan · Kabupaten Cirebon</p>
+          <span class="edu-badge" style="background:rgba(16,185,129,0.15);color:#6ee7b7;border-color:rgba(16,185,129,0.3);">Lulus</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:2.5rem;">
+      <p class="section-label">// Teknologi yang Dipelajari</p>
+      <div class="skills-list">
+        <div class="skill-tag">🌐 HTML</div>
+        <div class="skill-tag">🌐 C++</div>
+        <div class="skill-tag">🎨 CSS</div>
+        <div class="skill-tag">⚡ JavaScript</div>
+        <div class="skill-tag">🐍 Python</div>
+        <div class="skill-tag">☕ Java</div>
+        <div class="skill-tag">🗄️ Database</div>
+        <div class="skill-tag">🔧 Git</div>
+        <div class="skill-tag">📱 UI/UX</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- HOBBIES -->
+  <section id="hobbies">
+    <div class="reveal">
+      <p class="section-label">// 03 — Hobi & Minat</p>
+      <h2 class="section-title">Apa yang Saya <span>Sukai</span></h2>
+    </div>
+
+    <div class="hobbies-grid reveal">
+      <div class="hobby-card">
+        <div class="hobby-icon">⚽</div>
+        <h3>Bermain Bola</h3>
+        <p>Olahraga tim favorit (Barcelona), menjaga kesehatan dan kekompakan</p>
+      </div>
+      <div class="hobby-card">
+        <div class="hobby-icon">🥅</div>
+        <h3>Futsal</h3>
+        <p>Permainan cepat dan penuh strategi di lapangan indoor</p>
+      </div>
+      <div class="hobby-card">
+        <div class="hobby-icon">💻</div>
+        <h3>Ngoding</h3>
+        <p>Membangun solusi digital dan mengeksplorasi teknologi baru</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- CV SECTION -->
+  <section id="cv">
+    <div class="reveal">
+      <p class="section-label">// 04 — Curriculum Vitae</p>
+      <h2 class="section-title">Unduh <span>CV Saya</span></h2>
+    </div>
+
+    <div class="cv-card reveal">
+      <div class="cv-icon-wrap">
+        <div class="cv-doc-icon">📄</div>
+        <div class="cv-doc-label">CV · PDF</div>
+      </div>
+
+      <div class="cv-body">
+        <div class="cv-live-dot">Tersedia Online</div>
+        <h3>Curriculum Vitae — Moh Riyan Agustian</h3>
+        <p>Dokumen CV lengkap berisi riwayat pendidikan, keahlian teknis, dan informasi kontak. Dapat dilihat langsung atau diunduh melalui Google Drive.</p>
+
+        <div class="cv-meta">
+          <span class="cv-meta-tag">📚 Multimedia</span>
+          <span class="cv-meta-tag">🏫 SMK Ulil Albab Depok Cirebon</span>
+          <span class="cv-meta-tag">📅 2024</span>
+        </div>
+
+        <div class="cv-actions">
+          <a
+            href="https://drive.google.com/file/d/1zMZgrBnzoPVU5PPZg5gzosixJEBsdizf/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-cv-view"
+          >
+            👁️ Lihat CV di Google Drive
+          </a>
+          <a
+            href="https://drive.google.com/uc?export=download&id=1zMZgrBnzoPVU5PPZg5gzosixJEBsdizf"
+            class="btn btn-cv-download"
+          >
+            ⬇️ Download CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-card reveal">
+      <h2>Mari Berkenalan! 👋</h2>
+      <p>Tertarik untuk berkolaborasi, berdiskusi tentang teknologi, atau sekadar menyapa? Jangan ragu untuk menghubungi saya.</p>
+      <button onclick="document.getElementById('smOverlay').classList.add('open')" class="btn btn-primary">Kirim Pesan →</button>
+      <div class="contact-info">
+        <div class="contact-item"><span>📍</span> Cirebon, Jawa Barat</div>
+        <div class="contact-item"><span>🎓</span> Stikom Poltek Cirebon</div>
+        <div class="contact-item"><span>💻</span> S1 Teknik Informatika</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL MODAL -->
+  <div class="sm-overlay" id="smOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="sm-modal">
+      <div class="sm-modal-title">Mari Berkenalan! 👋</div>
+      <div class="sm-modal-sub">Pilih cara untuk menghubungi saya</div>
+
+      <a class="sm-btn" href="mailto:mohriyanagustian@gmail.com">
+        <div class="sm-icon email">✉️</div>
+        <div class="sm-info">
+          <p class="lbl">Email</p>
+          <p class="val">mohriyanagustian@gmail.com</p>
+        </div>
+      </a>
+
+      <a class="sm-btn" href="https://instagram.com/riyanagustian_2" target="_blank">
+        <div class="sm-icon ig">📸</div>
+        <div class="sm-info">
+          <p class="lbl">Instagram</p>
+          <p class="val">@riyanagustian_2</p>
+        </div>
+      </a>
+
+      <button class="sm-close" onclick="document.getElementById('smOverlay').classList.remove('open')">✕ Tutup</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Dibuat dengan ❤️ oleh <strong>Moh Riyan Agustian</strong> · Mahasiswa Teknik Informatika · 2025</p>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
